@@ -5,11 +5,8 @@ on:
     branches:
       - main
       - dev
-<<<<<<< HEAD
     tags:
       - 'v*'
-=======
->>>>>>> 5c53b4429ff64dc001dd9b9a87e67dc6c326782d
   pull_request:
     branches:
       - main
@@ -46,7 +43,7 @@ jobs:
         run: |
           if [[ $GITHUB_REF == refs/heads/main ]]; then
             echo "TAG=latest" >> $GITHUB_ENV
-          elif [[ $GITHUB_REF == refs/heads/develop ]]; then
+          elif [[ $GITHUB_REF == refs/heads/dev ]]; then
             echo "TAG=dev" >> $GITHUB_ENV
           elif [[ $GITHUB_REF == refs/tags/v* ]]; then
             echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
