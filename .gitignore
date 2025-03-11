@@ -1,4 +1,5 @@
 .env
+.dockerignore
 HELP.md
 .gradle
 build/
@@ -36,3 +37,17 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Logs
+*.log
+logs/
+*.out
+*.err
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Docker 관련 파일
+docker-compose.override.yml
+
