@@ -61,6 +61,10 @@ jobs:
           repository: WMS901/wms-helm-charts
           token: ${{ secrets.TOKEN }}
 
+      - name: Set Helm Image Tag
+        run: |
+          echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
       - name: Update Helm values.yaml for ArgoCD Deployment
         run: |
           cd service/inventory-service
