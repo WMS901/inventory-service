@@ -59,14 +59,14 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: WMS901/wms-helm-charts
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TOKEN }}
 
       - name: Update Helm values.yaml for ArgoCD Deployment
         run: |
           cd service/inventory-service
           sed -i 's/tag: .*/tag: "${{ env.TAG }}"/g' values.yaml
-          git config --global user.email "ci-bot@example.com"
-          git config --global user.name "CI Bot"
+          git config --global user.email ${{ secrets.USER_EMAIL }}
+          git config --global user.name ${{ secrets.USER_NAME }}
           git add values.yaml
           git commit -m "chore: update inventory-service image tag to ${{ env.TAG }}"
           git push origin main
