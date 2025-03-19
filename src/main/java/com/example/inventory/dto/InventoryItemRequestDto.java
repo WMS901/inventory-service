@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 public class InventoryItemRequestDto {
+    private String sku;      // SKU 추가 입고에서(kafka) 받아와야함.
     private String name;      // 상품명
     private String category;  // 카테고리
     private int quantity;     // 현재 재고 수량
