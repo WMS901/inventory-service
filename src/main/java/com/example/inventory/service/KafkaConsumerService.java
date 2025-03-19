@@ -3,10 +3,8 @@ package com.example.inventory.service;
 import com.example.inventory.dto.InventoryItemRequestDto;
 import com.example.inventory.entity.InventoryItem;
 import com.example.inventory.repository.InventoryRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -18,21 +16,16 @@ import java.math.BigDecimal;
 public class KafkaConsumerService {
 
     private final InventoryRepository inventoryRepository;
-    private final ObjectMapper objectMapper; // ✅ JSON 변환을 위한 ObjectMapper
 
-    @KafkaListener(topics = "inbound-confirmed", groupId = "inventory-group")
-    public void consumeInboundConfirmed(ConsumerRecord<String, String> record) {
-        log.info("📥 Kafka 메시지 수신: {}", record.value());
+    @KafkaListener(
+        topics = "inbound-confirmed",
+        groupId = "inventory-group",
+        containerFactory = "inventoryKafkaListenerContainerFactory"
+    )
+    public void consumeInboundConfirmed(InventoryItemRequestDto inboundItem) {
+        log.info("📥 Kafka 메시지 수신: {}", inboundItem);
 
         try {
-            if (record.value() == null || record.value().isEmpty()) {
-                log.warn("⚠️ 수신된 Kafka 메시지가 비어있음. 처리 중단.");
-                return;
-            }
-
-            // ✅ JSON 문자열을 DTO 객체로 변환
-            InventoryItemRequestDto inboundItem = objectMapper.readValue(record.value(), InventoryItemRequestDto.class);
-
             if (inboundItem.getSku() == null || inboundItem.getSku().isEmpty()) {
                 log.warn("⚠️ SKU가 없는 메시지 수신. 처리 중단.");
                 return;
@@ -40,11 +33,11 @@ public class KafkaConsumerService {
 
             // ✅ 기존 SKU 사용 (입고 서비스에서 생성한 SKU 유지)
             InventoryItem newItem = InventoryItem.builder()
-                    .sku(inboundItem.getSku()) // ✅ 기존 SKU 유지
+                    .sku(inboundItem.getSku())
                     .name(inboundItem.getName())
                     .category(inboundItem.getCategory())
                     .quantity(inboundItem.getQuantity())
-                    .price(inboundItem.getPrice())  // ✅ BigDecimal 변환 불필요
+                    .price(BigDecimal.valueOf(inboundItem.getPrice().doubleValue()))
                     .supplier(inboundItem.getSupplier())
                     .location(inboundItem.getLocation())
                     .build();
