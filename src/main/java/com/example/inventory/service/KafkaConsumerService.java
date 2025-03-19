@@ -25,16 +25,26 @@ public class KafkaConsumerService {
         log.info("📥 Kafka 메시지 수신: {}", record.value());
 
         try {
-            // JSON 문자열을 DTO 객체로 변환
+            if (record.value() == null || record.value().isEmpty()) {
+                log.warn("⚠️ 수신된 Kafka 메시지가 비어있음. 처리 중단.");
+                return;
+            }
+
+            // ✅ JSON 문자열을 DTO 객체로 변환
             InventoryItemRequestDto inboundItem = objectMapper.readValue(record.value(), InventoryItemRequestDto.class);
 
-            // 기존 SKU 사용 (입고 서비스에서 생성한 SKU 유지)
+            if (inboundItem.getSku() == null || inboundItem.getSku().isEmpty()) {
+                log.warn("⚠️ SKU가 없는 메시지 수신. 처리 중단.");
+                return;
+            }
+
+            // ✅ 기존 SKU 사용 (입고 서비스에서 생성한 SKU 유지)
             InventoryItem newItem = InventoryItem.builder()
-                    .sku(inboundItem.getSku()) // 기존 SKU 유지
+                    .sku(inboundItem.getSku()) // ✅ 기존 SKU 유지
                     .name(inboundItem.getName())
                     .category(inboundItem.getCategory())
                     .quantity(inboundItem.getQuantity())
-                    .price(BigDecimal.valueOf(inboundItem.getPrice().doubleValue()))
+                    .price(inboundItem.getPrice())  // ✅ BigDecimal 변환 불필요
                     .supplier(inboundItem.getSupplier())
                     .location(inboundItem.getLocation())
                     .build();
