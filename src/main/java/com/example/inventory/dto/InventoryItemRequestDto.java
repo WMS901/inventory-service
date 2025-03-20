@@ -22,7 +22,7 @@ public class InventoryItemRequestDto {
     private String category;
     
     @JsonProperty("quantity")
-    private int quantity;
+    private Integer quantity;
 
     @JsonProperty("reservedQuantity")
     private Integer reservedQuantity;
