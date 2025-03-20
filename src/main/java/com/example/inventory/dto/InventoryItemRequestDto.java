@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -31,4 +32,7 @@ public class InventoryItemRequestDto {
     
     @JsonProperty("location")
     private String location;    // 창고 위치
+
+    @JsonProperty("createdAt")  // ✅ createdAt 필드 추가
+    private LocalDateTime createdAt;  // 생성일
 }

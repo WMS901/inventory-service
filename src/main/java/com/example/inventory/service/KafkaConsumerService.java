@@ -40,6 +40,7 @@ public class KafkaConsumerService {
                     .price(BigDecimal.valueOf(inboundItem.getPrice().doubleValue()))
                     .supplier(inboundItem.getSupplier())
                     .location(inboundItem.getLocation())
+                    .createdAt(inboundItem.getCreatedAt())
                     .build();
 
             inventoryRepository.save(newItem);
