@@ -26,6 +26,7 @@ public class InventoryServiceImpl implements InventoryService {
                 .price(item.getPrice())
                 .supplier(item.getSupplier())
                 .location(item.getLocation())
+                .createdAt(item.getCreatedAt())
                 .build();
     }
 
@@ -37,6 +38,7 @@ public class InventoryServiceImpl implements InventoryService {
                 .price(itemDto.getPrice())
                 .supplier(itemDto.getSupplier())
                 .location(itemDto.getLocation())
+                .createdAt(itemDto.getCreatedAt())
                 .build();
         return convertToResponseDto(inventoryRepository.save(item));
     }
