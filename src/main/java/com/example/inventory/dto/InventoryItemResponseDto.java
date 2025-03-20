@@ -1,8 +1,7 @@
 package com.example.inventory.dto;
-
 import lombok.*;
-
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -17,4 +16,5 @@ public class InventoryItemResponseDto {
     private BigDecimal price;
     private String supplier;
     private String location;
+    private LocalDateTime createdAt;
 }
