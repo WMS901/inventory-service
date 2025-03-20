@@ -47,7 +47,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     public Page<InventoryItemResponseDto> getAllItems(Pageable pageable) {
-        return inventoryRepository.findAll(pageable).map(this::convertToResponseDto);
+        return inventoryRepository.findAllByOrderByCreatedAtDesc(pageable).map(this::convertToResponseDto);
     }
 
     public Optional<InventoryItemResponseDto> getItemBySku(String sku) {

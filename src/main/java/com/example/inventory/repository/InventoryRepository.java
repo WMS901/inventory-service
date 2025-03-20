@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface InventoryRepository extends JpaRepository<InventoryItem, Long> {
     Optional<InventoryItem> findBySku(String sku);
-    Page<InventoryItem> findAll(Pageable pageable);
+    Page<InventoryItem> findAllByOrderByCreatedAtDesc(Pageable pageable);
 }
