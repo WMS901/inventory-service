@@ -13,6 +13,7 @@ public class InventoryItemResponseDto {
     private String name;
     private String category;
     private int quantity;
+    private int reservedQuantity;
     private BigDecimal price;
     private String supplier;
     private String location;

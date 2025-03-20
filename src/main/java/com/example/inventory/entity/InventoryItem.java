@@ -21,25 +21,28 @@ public class InventoryItem {
     private Long id;
 
     @Column(nullable = false, unique = true, length = 50)
-    private String sku;  // 상품 고유 코드 (SKU)
+    private String sku;
 
     @Column(nullable = false, length = 100)
-    private String name; // 상품명
+    private String name;
 
     @Column(nullable = false, length = 50)
-    private String category; // 카테고리
+    private String category;
 
     @Column(nullable = false)
-    private int quantity; // 재고 수량
+    private int quantity;
+
+    @Column(nullable = false, columnDefinition = "INTEGER DEFAULT 0")
+    private int reservedQuantity = 0;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    private BigDecimal price; // 가격
+    private BigDecimal price;
 
     @Column(length = 100)
-    private String supplier; // 공급업체
+    private String supplier;
 
     @Column(length = 50)
-    private String location; // 창고 위치
+    private String location;
 
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -51,6 +54,7 @@ public class InventoryItem {
         if (this.sku == null || this.sku.isEmpty()) {
             this.sku = generateSku(this.category, this.name);
         }
+
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
