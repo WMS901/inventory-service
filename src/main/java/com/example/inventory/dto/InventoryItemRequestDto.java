@@ -38,4 +38,8 @@ public class InventoryItemRequestDto {
 
     @JsonProperty("createdAt")
     private LocalDateTime createdAt;
+
+    public int getReservedQuantity() {
+        return reservedQuantity != null ? reservedQuantity : 0;
+    }
 }

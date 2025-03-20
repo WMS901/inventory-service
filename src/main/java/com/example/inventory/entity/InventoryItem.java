@@ -32,7 +32,7 @@ public class InventoryItem {
     @Column(nullable = false)
     private int quantity;
 
-    @Column(nullable = false, columnDefinition = "INTEGER DEFAULT 0")
+    @Column(nullable = false)
     private int reservedQuantity = 0;
 
     @Column(nullable = false, precision = 10, scale = 2)

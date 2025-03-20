@@ -37,7 +37,7 @@ public class InventoryServiceImpl implements InventoryService {
                 .name(itemDto.getName())
                 .category(itemDto.getCategory())
                 .quantity(itemDto.getQuantity())
-                .reservedQuantity(itemDto.getReservedQuantity() != null ? itemDto.getReservedQuantity() : 0)
+                .reservedQuantity(itemDto.getReservedQuantity())
                 .price(itemDto.getPrice())
                 .supplier(itemDto.getSupplier())
                 .location(itemDto.getLocation())
