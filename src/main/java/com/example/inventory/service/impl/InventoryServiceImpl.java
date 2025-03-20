@@ -1,9 +1,10 @@
-package com.example.inventory.service;
+package com.example.inventory.service.impl;
 
 import com.example.inventory.dto.InventoryItemRequestDto;
 import com.example.inventory.dto.InventoryItemResponseDto;
 import com.example.inventory.entity.InventoryItem;
 import com.example.inventory.repository.InventoryRepository;
+import com.example.inventory.service.InventoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -56,12 +57,13 @@ public class InventoryServiceImpl implements InventoryService {
     public InventoryItemResponseDto updateItem(String sku, InventoryItemRequestDto itemDto) {
         return inventoryRepository.findBySku(sku)
                 .map(item -> {
-                    item.setName(itemDto.getName());
-                    item.setCategory(itemDto.getCategory());
-                    item.setQuantity(itemDto.getQuantity());
-                    item.setPrice(itemDto.getPrice());
-                    item.setSupplier(itemDto.getSupplier());
-                    item.setLocation(itemDto.getLocation());
+                    Optional.ofNullable(itemDto.getName()).ifPresent(item::setName);
+                    Optional.ofNullable(itemDto.getCategory()).ifPresent(item::setCategory);
+                    Optional.ofNullable(itemDto.getQuantity()).ifPresent(item::setQuantity);
+                    Optional.ofNullable(itemDto.getReservedQuantity()).ifPresent(item::setReservedQuantity);
+                    Optional.ofNullable(itemDto.getPrice()).ifPresent(item::setPrice);
+                    Optional.ofNullable(itemDto.getSupplier()).ifPresent(item::setSupplier);
+                    Optional.ofNullable(itemDto.getLocation()).ifPresent(item::setLocation);
                     return convertToResponseDto(inventoryRepository.save(item));
                 })
                 .orElseThrow(() -> new RuntimeException("Item not found"));
