@@ -37,6 +37,7 @@ public class KafkaConsumerService {
                     .name(inboundItem.getName())
                     .category(inboundItem.getCategory())
                     .quantity(inboundItem.getQuantity())
+                    .reservedQuantity(inboundItem.getReservedQuantity())
                     .price(BigDecimal.valueOf(inboundItem.getPrice().doubleValue()))
                     .supplier(inboundItem.getSupplier())
                     .location(inboundItem.getLocation())
