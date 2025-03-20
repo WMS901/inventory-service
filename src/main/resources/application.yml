@@ -21,8 +21,23 @@ spring:
       hibernate:
         format_sql: true
 
+  kafka:
+    bootstrap-servers: my-cluster-kafka-bootstrap.kafka.svc.cluster.local:9092
+    consumer:
+      group-id: inventory-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
 logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework.security: DEBUG
+    org.apache.kafka: DEBUG
