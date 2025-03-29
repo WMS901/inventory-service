@@ -42,3 +42,13 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework.security: DEBUG
     org.apache.kafka: WARN
+
+# ✅ Actuator 설정 추가 (ALB Health Check 대응용)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
