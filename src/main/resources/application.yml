@@ -43,10 +43,6 @@ logging:
     org.springframework.security: DEBUG
     org.apache.kafka: WARN
 
-# ✅ Actuator 설정 추가 (ALB Health Check 대응용)
-server:
-  port: 1040
-
 management:
   endpoints:
     web:
