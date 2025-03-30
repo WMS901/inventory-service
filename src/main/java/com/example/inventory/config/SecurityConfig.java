@@ -20,16 +20,12 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                // ALB 헬스 체크 허용
-                .requestMatchers("/actuator/health", "/actuator/info").permitAll()
-                // 프론트 요청 허용
+                // ✅ ALB 헬스체크 및 actuator 전체 허용
+                .requestMatchers("/actuator/**").permitAll()
                 .requestMatchers("/api/**").permitAll()
-                // OPTIONS 프리플라이트 요청 허용
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                // 나머지는 인증 필요
                 .anyRequest().authenticated()
             );
-
         return http.build();
     }
 
