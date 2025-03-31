@@ -36,7 +36,7 @@ public class SecurityConfig {
 
         config.setAllowedOrigins(List.of(
                 "https://d35bvw568gyud1.cloudfront.net",
-                "https://d2py2wu35wxyhc.cloudfront.net"
+                "https://solcloud.store"
         ));
 
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
