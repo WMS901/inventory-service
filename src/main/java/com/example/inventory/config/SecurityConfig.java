@@ -37,7 +37,12 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(List.of("https://d35bvw568gyud1.cloudfront.net"));
+
+        config.setAllowedOrigins(List.of(
+                "https://d35bvw568gyud1.cloudfront.net",
+                "https://d2py2wu35wxyhc.cloudfront.net"
+        ));
+
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 
